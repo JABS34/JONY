@@ -1,0 +1,24 @@
+{
+  "profile": {
+    "name": "Jonathan Alexander Bermello Sánchez",
+    "role": "Estudiante de Ingeniería en Sistemas",
+    "summary": "Escribe aquí tu resumen personal. Este archivo se edita en backend/data/portfolio.json y se ve al recargar la página.",
+    "links": [
+      { "label": "GitHub", "url": "https://github.com/JABS34" }
+    ]
+  },
+  "skills": [
+    { "name": "Java", "category": "Lenguajes", "percentage": 70 },
+    { "name": "HTML5", "category": "Lenguajes", "percentage": 85 },
+    { "name": "CSS3", "category": "Lenguajes", "percentage": 75 },
+    { "name": "JavaScript", "category": "Lenguajes", "percentage": 55 },
+    { "name": "MySQL", "category": "Bases de datos", "percentage": 65 },
+    { "name": "SQLite", "category": "Bases de datos", "percentage": 40 },
+    { "name": "Git / GitHub", "category": "Herramientas", "percentage": 60 },
+    { "name": "VS Code", "category": "Herramientas", "percentage": 80 }
+  ],
+  "projects": [],
+  "certificates": [],
+  "courses": [],
+  "experience": []
+}

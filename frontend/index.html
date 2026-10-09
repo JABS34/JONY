@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>JONY · Tu asistente</title>
+  <meta name="description" content="JONY, un asistente personal estilo JARVIS.">
+  <meta name="theme-color" content="#02070d">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/css/core/base.css">
+  <link rel="stylesheet" href="/css/core/hud.css">
+  <link rel="stylesheet" href="/css/core/boot.css">
+  <link rel="stylesheet" href="/css/core/panels.css">
+  <link rel="stylesheet" href="/css/core/responsive.css">
+  <script src="/js/core/failsafe.js"></script>
+  <script type="module" src="/js/main.js"></script>
+</head>
+<body class="booting">
+  <canvas id="bg" aria-hidden="true"></canvas>
+  <a class="skip-link" href="#cmd-input">Ir al campo de órdenes</a>
+
+  <div id="stage" class="stage">
+    <header class="topbar">
+      <p class="wordmark">JONY</p>
+      <div class="topbar-actions">
+        <button id="btn-sound" class="btn" type="button" aria-pressed="false">Sonido: activado</button>
+        <button id="btn-diag" class="btn" type="button">Diagnóstico</button>
+      </div>
+    </header>
+
+    <main class="layout">
+      <section class="side side-left" aria-label="Estado del sistema">
+        <p id="clock-time" class="clock-time">--:--:--</p>
+        <p id="clock-date" class="clock-date">&nbsp;</p>
+        <dl class="stats">
+          <div><dt>Componentes</dt><dd id="stat-components" data-state="warn">Comprobando…</dd></div>
+          <div><dt>Servidor</dt><dd id="stat-server" data-state="warn">Comprobando…</dd></div>
+        </dl>
+      </section>
+
+      <section class="center" aria-label="JONY">
+        <div id="core" class="core" aria-hidden="true">
+          <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" focusable="false">
+            <defs>
+              <radialGradient id="coreGrad" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#e6fbff"/>
+                <stop offset="45%" stop-color="#35e0ff"/>
+                <stop offset="100%" stop-color="#0a5f78"/>
+              </radialGradient>
+            </defs>
+            <circle class="ring ring-a" cx="200" cy="200" r="188"/>
+            <circle class="ring ring-b" cx="200" cy="200" r="168"/>
+            <circle class="ring ring-c" cx="200" cy="200" r="148"/>
+            <polygon class="ring ring-d" points="200,92 293.5,146 293.5,254 200,308 106.5,254 106.5,146"/>
+            <circle class="ring ring-e" cx="200" cy="200" r="96"/>
+            <circle class="core-disc" cx="200" cy="200" r="64" fill="url(#coreGrad)"/>
+            <g class="bars">
+              <rect class="bar" x="168" y="180" width="8" height="40" rx="4"/>
+              <rect class="bar" x="184" y="170" width="8" height="60" rx="4"/>
+              <rect class="bar" x="196" y="162" width="8" height="76" rx="4"/>
+              <rect class="bar" x="208" y="170" width="8" height="60" rx="4"/>
+              <rect class="bar" x="224" y="180" width="8" height="40" rx="4"/>
+            </g>
+          </svg>
+        </div>
+
+        <p id="user-line" class="user-line"></p>
+        <p id="jony-line" class="jony-line" aria-hidden="true"></p>
+        <p id="jony-live" class="sr-only" role="status" aria-live="polite"></p>
+
+        <form id="cmd-form" class="cmd" autocomplete="off">
+          <label class="sr-only" for="cmd-input">Orden para JONY</label>
+          <input id="cmd-input" type="text" maxlength="200" placeholder="Escribe una orden, por ejemplo: ver portafolio" enterkeyhint="send">
+          <button class="btn btn-primary" type="submit">Enviar</button>
+        </form>
+      </section>
+
+      <nav class="side side-right" aria-label="¿Qué quieres hacer hoy?">
+        <h2 class="side-title">¿Qué quieres hacer hoy?</h2>
+        <ul id="quick-list" class="quick-list"></ul>
+      </nav>
+    </main>
+  </div>
+
+  <div id="scrim" class="scrim" hidden></div>
+
+  <section id="panel-portfolio" class="panel" role="dialog" aria-modal="true" aria-labelledby="panel-portfolio-title" hidden>
+    <header class="panel-head">
+      <h2 id="panel-portfolio-title">Mi portafolio</h2>
+      <button class="btn panel-close" type="button">Cerrar</button>
+    </header>
+    <div id="portfolio-body" class="panel-body"></div>
+  </section>
+
+  <section id="panel-diag" class="panel" role="dialog" aria-modal="true" aria-labelledby="panel-diag-title" hidden>
+    <header class="panel-head">
+      <h2 id="panel-diag-title">Diagnóstico del sistema</h2>
+      <button class="btn panel-close" type="button">Cerrar</button>
+    </header>
+    <div id="diag-body" class="panel-body"></div>
+  </section>
+
+  <div id="boot" class="boot" role="status" aria-label="Iniciando JONY">
+    <svg class="boot-ring" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">
+      <circle class="draw" cx="100" cy="100" r="86"/>
+      <circle class="spin" cx="100" cy="100" r="70"/>
+      <circle class="dot" cx="100" cy="100" r="8"/>
+    </svg>
+    <p class="boot-title">JONY</p>
+    <ul id="boot-lines" class="boot-lines"></ul>
+    <div class="boot-track" aria-hidden="true"><div id="boot-bar" class="boot-bar"></div></div>
+    <button id="boot-skip" class="btn boot-skip" type="button">Saltar</button>
+  </div>
+
+  <div id="fatal" class="fatal" role="alert" hidden>
+    <h1>JONY no pudo iniciar</h1>
+    <p>Abre la página con <strong>INICIAR.bat</strong> (o con <code>npm start</code>) y entra a <code>http://localhost:3000</code>. No funciona abriendo index.html con doble clic.</p>
+    <p>Si ya lo hiciste, presiona F12, abre la pestaña Consola y busca el archivo que aparece en rojo.</p>
+  </div>
+
+  <noscript><div class="fatal"><h1>JONY necesita JavaScript</h1><p>Actívalo en tu navegador para usar el asistente.</p></div></noscript>
+</body>
+</html>

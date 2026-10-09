@@ -1,0 +1,63 @@
+/* Animacion de arranque y pantalla de error fatal. */
+.boot {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 24px;
+  background: var(--void);
+  transition: opacity 0.5s ease;
+}
+.boot.done { opacity: 0; pointer-events: none; }
+
+.boot-ring { width: 160px; height: 160px; }
+.boot-ring circle { fill: none; stroke: var(--cyan); transform-box: fill-box; transform-origin: center; }
+.boot-ring .draw { stroke-width: 2; stroke-dasharray: 540; stroke-dashoffset: 540; animation: draw 1.4s ease-out forwards; }
+.boot-ring .spin { stroke-width: 3; stroke-opacity: 0.6; stroke-dasharray: 60 30; animation: spin 6s linear infinite; }
+.boot-ring .dot { fill: var(--ice); stroke: none; animation: pulse 1.6s ease-in-out infinite; }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+
+.boot-title {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: 0.4em;
+  padding-left: 0.4em;
+  color: var(--cyan);
+}
+.boot-lines {
+  width: min(420px, 100%);
+  min-height: 9.5em;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+.boot-lines li::before { content: "> "; color: var(--line-strong); }
+.boot-lines li.ok { color: var(--ice); }
+.boot-lines li.ok::after { content: "  listo"; color: var(--ok); }
+.boot-lines li.err { color: var(--danger); }
+
+.boot-track { width: min(420px, 100%); height: 3px; background: rgba(53, 224, 255, 0.15); border-radius: 2px; overflow: hidden; }
+.boot-bar { width: 0; height: 100%; background: var(--cyan); transition: width 0.3s ease; }
+.boot-skip { margin-top: 8px; color: var(--muted); }
+
+.fatal {
+  position: fixed;
+  inset: 0;
+  z-index: 400;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 28px;
+  text-align: center;
+  background: var(--void);
+}
+.fatal h1 { font-family: var(--font-display); font-size: 1.8rem; color: var(--danger); }
+.fatal p { max-width: 52ch; }
+.fatal code { font-family: var(--font-mono); padding: 1px 6px; background: rgba(53, 224, 255, 0.12); border-radius: 4px; }
